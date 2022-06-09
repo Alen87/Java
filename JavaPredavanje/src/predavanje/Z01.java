@@ -19,7 +19,7 @@ public class Z01 {
 				);
 		
 		double treciBroj=Double.parseDouble(
-				JOptionPane.showInputDialog("Unesi trci broj")
+				JOptionPane.showInputDialog("Unesi treci broj")
 				);
 		
 		
