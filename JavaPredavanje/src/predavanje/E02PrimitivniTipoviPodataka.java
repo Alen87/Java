@@ -3,8 +3,26 @@ package predavanje;
 public class E02PrimitivniTipoviPodataka {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+		//https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html
+		
+		//logièka vrijesnost
+		boolean aktivan = true;
+		//cijeli brojevi
+		byte maliBroj = -25;
+		short maloVeciBroj = 589;
+		int integer = 2656; //ovo æemo koristiti
+		long velikiBroj = 33333;
+		//decimalni brojevi
+		float manjiDecimalni = 3.14f;
+		double velikiDecimalniBroj = 3.14;
+		//znakovni
+		char znak = 't';
+		
+		// ovako nešto ne postoji
+		//integer.parse("");
+		
+		
 	}
 
 }
