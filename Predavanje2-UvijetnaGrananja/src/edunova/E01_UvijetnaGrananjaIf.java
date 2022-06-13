@@ -1,8 +1,7 @@
-package uvijetnaGrananja;
+package edunova;
 
-public class E01_UvijetnoGrananjeIf {
+public class E01_UvijetnaGrananjaIf {
 	public static void main(String[] args) {
-		
 		// obavezni dio if naredbe
 
 				boolean uvjet = true;
@@ -98,7 +97,6 @@ public class E01_UvijetnoGrananjeIf {
 
 				// inline if - tercijarni operator ? :
 				System.out.println(i > j ? i : j);	
-		
 		
 		
 		
