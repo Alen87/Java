@@ -1,4 +1,4 @@
-package predavanje;
+package uvijetnaGrananja;
 
 public class E01_UvijetnoGrananjeIf {
 	public static void main(String[] args) {
