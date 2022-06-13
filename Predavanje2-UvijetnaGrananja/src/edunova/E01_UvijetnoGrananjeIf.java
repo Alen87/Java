@@ -1,6 +1,6 @@
 package edunova;
 
-public class E01_UvijetnaGrananjaIf {
+public class E01_UvijetnoGrananjeIf {
 	public static void main(String[] args) {
 		// obavezni dio if naredbe
 
