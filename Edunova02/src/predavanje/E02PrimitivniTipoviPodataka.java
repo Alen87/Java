@@ -6,12 +6,12 @@ public class E02PrimitivniTipoviPodataka {
 
 		//https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html
 		
-		//logiËka vrijesnost
+		//logiƒçka vrijesnost
 		boolean aktivan = true;
 		//cijeli brojevi
 		byte maliBroj = -25;
 		short maloVeciBroj = 589;
-		int integer = 2656; //ovo Êemo koristiti
+		int integer = 2656; //ovo ƒáemo koristiti
 		long velikiBroj = 33333;
 		//decimalni brojevi
 		float manjiDecimalni = 3.14f;
@@ -19,7 +19,7 @@ public class E02PrimitivniTipoviPodataka {
 		//znakovni
 		char znak = 't';
 		
-		// ovako neöto ne postoji
+		// ovako ne≈°to ne postoji
 		//integer.parse("");
 		
 		
