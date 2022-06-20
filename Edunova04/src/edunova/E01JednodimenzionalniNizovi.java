@@ -56,7 +56,7 @@ public class E01JednodimenzionalniNizovi {
 				System.out.println();
 				
 				
-				// nizovi mogu biti bolo koji tip podatka
+				// nizovi mogu biti bilo koji tip podatka
 				double[] brojevi = new double[5];
 				
 				// brojevi[0]=true; // ne može drugi tip podatka
