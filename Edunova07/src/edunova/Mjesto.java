@@ -3,6 +3,12 @@ package edunova;
 public class Mjesto {
 	private int povrsina;
 	private String naziv;
+	
+	
+	
+	
+	
+	
 	public int getPovrsina() {
 		return povrsina;
 	}
