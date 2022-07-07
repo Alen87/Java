@@ -51,7 +51,9 @@ public class Pravokutnik {
 	}
 
 
-
+	public int povrsina() {
+		return sirina * visina;
+	}
 
 	@Override
 	public String toString() {
