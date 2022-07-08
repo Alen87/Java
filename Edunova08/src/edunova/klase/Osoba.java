@@ -40,6 +40,8 @@ public abstract class Osoba extends Object {
 	@Override
 	public String toString() {
 		//return ime + " " + prezime; - ovo nije dobra praksa
+		
+		// tocniji  nacin pisanja toString metode, zbog  brzine  izvodenja
 		StringBuilder sb = new StringBuilder();
 		sb.append(ime).append(" ").append(prezime);
 		return sb.toString();
