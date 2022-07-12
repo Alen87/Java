@@ -1,6 +1,8 @@
 package edunova.zadatak05;
 
-public class Knjiga {
+import java.util.Date;
+
+public class Knjiga extends Publikacija{
 
 	private int brojStranica;
 	private Autor autor[];
@@ -8,15 +10,20 @@ public class Knjiga {
 	
 	
 	
-	public Knjiga() {
-		super();
-	}
+	
 
 
 
+	
 
-	public Knjiga(int brojStranica, Autor[] autor) {
-		super();
+
+
+	
+
+
+
+	public Knjiga(Date datumIzdavanja, int brojStranica, Autor[] autor) {
+		super(datumIzdavanja);
 		this.brojStranica = brojStranica;
 		this.autor = autor;
 	}
