@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Grupa {
+public class Grupa extends Entitet {
 	
 	private String naziv;
 	private Smjer smjer;
