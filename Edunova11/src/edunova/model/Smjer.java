@@ -1,17 +1,14 @@
-package model;
+package edunova.model;
 
 import java.math.BigDecimal;
 
 public class Smjer extends Entitet {
-	
+
 	private String naziv;
 	private Integer trajanje;
 	private BigDecimal cijena;
 	private BigDecimal upisnina;
 	private Boolean certificiran;
-	
-	
-	
 	
 	public String getNaziv() {
 		return naziv;
@@ -37,7 +34,7 @@ public class Smjer extends Entitet {
 	public void setUpisnina(BigDecimal upisnina) {
 		this.upisnina = upisnina;
 	}
-	public Boolean getCertificiran() {
+	public Boolean isCertificiran() {
 		return certificiran;
 	}
 	public void setCertificiran(Boolean certificiran) {
@@ -45,6 +42,4 @@ public class Smjer extends Entitet {
 	}
 	
 	
-	
-
 }

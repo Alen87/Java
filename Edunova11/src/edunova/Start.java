@@ -1,30 +1,46 @@
 package edunova;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import model.Grupa;
-import model.Polaznik;
-import model.Predavac;
-import model.Smjer;
-import util.GrupaCRUD;
-import util.Pomocno;
-import util.SmjerCRUD;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+
+import edunova.model.Clan;
+import edunova.model.Grupa;
+import edunova.model.Polaznik;
+import edunova.model.Predavac;
+import edunova.model.Smjer;
+import edunova.util.GrupaCRUD;
+import edunova.util.Pomocno;
+import edunova.util.SmjerCRUD;
 
 public class Start {
 
 	private List<Smjer> smjerovi;
 	private List<Polaznik> polaznici;
 	private List<Predavac> predavaci;
-	private List<Grupa> grupe;
+	private List<Grupa> grupe; 
+	
 
 	public Start() {
 		smjerovi = new ArrayList<>();
 		polaznici = new ArrayList<>();
 		predavaci = new ArrayList<>();
 		grupe = new ArrayList<>();
-		inicijalniPodaci();
+		//inicijalniPodaci();
+		procitajSDiska();
 		Pomocno.ulaz = new Scanner(System.in);
 		System.out.println("***** Edunova konzolna aplikacija V1 *****");
 		izbornik();
@@ -36,20 +52,28 @@ public class Start {
 		s.setSifra(1);
 		s.setNaziv("Java");
 		smjerovi.add(s);
-		s = new Smjer();
+		s=new Smjer();
 		s.setSifra(2);
 		s.setNaziv("PHP");
 		smjerovi.add(s);
-
-		polaznici.add(new Polaznik(1, "Ana", "Zimska", "", "", ""));
-		polaznici.add(new Polaznik(2, "Marko", "Tot", "", "", ""));
-		polaznici.add(new Polaznik(3, "Marija", "Sven", "", "", ""));
+		
+		polaznici.add(new Polaznik(1,"Ana","Zimska","","",""));
+		polaznici.add(new Polaznik(2,"Marko","Tot","","",""));
+		polaznici.add(new Polaznik(3,"Marija","Sven","","",""));
 
 		Predavac p = new Predavac();
 		p.setSifra(1);
 		p.setIme("Karlo");
 		p.setPrezime("Èeè");
 		predavaci.add(p);
+		
+		
+		Grupa g = new Grupa();
+		g.setNaziv("JP26");
+		g.setSmjer(smjerovi.get(0));
+		g.getClanovi().add(new Clan(1,g,polaznici.get(0)));
+		g.getClanovi().add(new Clan(2,g,polaznici.get(1)));
+		grupe.add(g);
 	}
 
 	private void pokreniProgram() {
@@ -72,31 +96,9 @@ public class Start {
 	}
 
 	private void predavaci() {
-		System.out.println("Program predavaci");
-		izbornikProgram();
-		PokreniPredavaciAkcija();
-	}
-
-	private void PokreniPredavaciAkcija() {
-		switch(Pomocno.ucitajInt("Pokreni predavaci akcija ", 1, 5)) {
-		
-		case 1:
-			
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		
-		
-		
-		
-		}
-		
+		System.out.println("Domaæa zadaæa");
+		// za sada
+		izbornik();
 	}
 
 	private void polaznici() {
@@ -114,7 +116,7 @@ public class Start {
 	private void pokreniGrupaAkcija() {
 		switch (Pomocno.ucitajInt("Odaberite akciju", 1, 5)) {
 		case 1:
-			grupe.add(GrupaCRUD.unosNove(smjerovi, predavaci, polaznici));
+			grupe.add(GrupaCRUD.unosNove(smjerovi,predavaci,polaznici));
 			grupe();
 			break;
 		case 2:
@@ -122,7 +124,11 @@ public class Start {
 			grupe();
 			break;
 		case 3:
-
+			GrupaCRUD.ispis(grupe);
+			GrupaCRUD.promjena(
+					grupe.get(Pomocno.ucitajInt("Odaberi grupu", 0, 
+							grupe.size())-1)
+					, smjerovi, predavaci, polaznici);
 			grupe();
 			break;
 		case 4:
@@ -152,6 +158,7 @@ public class Start {
 		switch (Pomocno.ucitajInt("Odaberite akciju", 1, 5)) {
 		case 1:
 			smjerovi.add(SmjerCRUD.unosNovog());
+			spremiNaDisk();
 			smjerovi();
 			break;
 		case 2:
@@ -160,12 +167,17 @@ public class Start {
 			break;
 		case 3:
 			SmjerCRUD.ispis(smjerovi);
-			SmjerCRUD.promjena(smjerovi.get(Pomocno.ucitajInt("Odaberi smjer", 1, smjerovi.size()) - 1));
+			SmjerCRUD.promjena(smjerovi.get(
+					Pomocno.ucitajInt("Odaberi smjer", 
+							1, smjerovi.size())-1
+					));
 			smjerovi();
 			break;
 		case 4:
 			SmjerCRUD.ispis(smjerovi);
-			smjerovi.remove(Pomocno.ucitajInt("Odaberi smjer", 1, smjerovi.size()) - 1);
+			smjerovi.remove(Pomocno.ucitajInt("Odaberi smjer", 
+							1, smjerovi.size())-1
+					);
 			smjerovi();
 			break;
 		case 5:
@@ -191,5 +203,69 @@ public class Start {
 	public static void main(String[] args) {
 		new Start();
 	}
+	
+	private void procitajSDiska() {
+		Gson g = new Gson();
+		Type dataType = (new TypeToken<Spremanje>()
+		{
+		}).getType();
+
+		try {
+			Spremanje s = g.fromJson(Files.readString(Path.of("podatak.json")), dataType);
+			this.grupe=s.getGrupe();
+			this.polaznici=s.getPolaznici();
+			this.predavaci=s.getPredavaci();
+			this.smjerovi=s.getSmjerovi();
+		} catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void spremiNaDisk() {
+		Spremanje s = new Spremanje();
+		s.setGrupe(grupe);
+		s.setPolaznici(polaznici);
+		s.setPredavaci(predavaci);
+		s.setSmjerovi(smjerovi);
+		
+		ExclusionStrategy strategija = new ExclusionStrategy(){
+            @Override
+            public boolean shouldSkipField(FieldAttributes fa) {
+                if(fa.getDeclaringClass()==Clan.class && fa.getName().equals("grupa")){
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> type) {
+                return false;
+            }
+            
+        };
+        
+        
+        Gson gson = new GsonBuilder()
+                .setExclusionStrategies(strategija)
+                .setPrettyPrinting()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                .create();
+		
+		try {
+			FileWriter fw = new FileWriter("podaci.json");
+			fw.write(gson.toJson(s));
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 
 }
