@@ -1,5 +1,6 @@
 package util;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Pomocno {
@@ -63,6 +64,23 @@ public class Pomocno {
 			return s;
 		}
 	}
+	
+	
+	public static BigDecimal ucitajBigDecimal(String poruka) {
+		while (true) {
+			System.out.print(poruka + ": ");
+			try {
+				return BigDecimal.valueOf(ulaz.nextDouble());
+			} catch (Exception e) {
+				System.out.println("Niste unijeli cijeli broj");
+			}
+		}
+	}
+	
+	
+	
+	
+	
 
 	/**
 	 * https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
