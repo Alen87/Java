@@ -211,7 +211,7 @@ public class Start {
 		}).getType();
 
 		try {
-			Spremanje s = g.fromJson(Files.readString(Path.of("podatak.json")), dataType);
+			Spremanje s = g.fromJson(Files.readString(Path.of("podaci.json")), dataType);
 			this.grupe=s.getGrupe();
 			this.polaznici=s.getPolaznici();
 			this.predavaci=s.getPredavaci();
