@@ -4,6 +4,11 @@
  */
 package com.edunova.edunova01;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Alen
@@ -45,6 +50,7 @@ public class Prozor extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         taRezultat = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
+        btnPodaciIzBaze = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,6 +82,13 @@ public class Prozor extends javax.swing.JFrame {
 
         jLabel3.setText("REZULTAT");
 
+        btnPodaciIzBaze.setText("Podaci iz baze");
+        btnPodaciIzBaze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPodaciIzBazeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,13 +103,15 @@ public class Prozor extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(229, 229, 229)
-                        .addComponent(btnGumb))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(txtOd, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(139, 139, 139)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnPodaciIzBaze)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(229, 229, 229)
+                            .addComponent(btnGumb))))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,7 +124,9 @@ public class Prozor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnPodaciIzBaze)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(btnGumb))
@@ -140,6 +157,30 @@ public class Prozor extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnGumbActionPerformed
+
+    private void btnPodaciIzBazeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPodaciIzBazeActionPerformed
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3306/edunovajp26",
+                    "root", ""
+            );
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "select * from smjer"
+        );
+            ResultSet resultSet = statement.executeQuery();
+            String naziv;
+            while (resultSet.next()) {
+                naziv = resultSet.getString("naziv"); 
+                System.out.println(naziv);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }//GEN-LAST:event_btnPodaciIzBazeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +219,7 @@ public class Prozor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGumb;
+    private javax.swing.JButton btnPodaciIzBaze;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JColorChooser jColorChooser10;
     private javax.swing.JColorChooser jColorChooser2;
