@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  *
  * @author Alen
  */
-
+@Entity
 public class Smjer {
     
     private Integer sifra;
