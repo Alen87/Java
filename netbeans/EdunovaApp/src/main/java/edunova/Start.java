@@ -5,13 +5,23 @@
 
 package edunova;
 
+import edunova.util.HibernateUtil;
+
 /**
  *
  * @author Alen
  */
 public class Start {
 
+    public Start() {
+        
+     HibernateUtil.getSession();
+        
+    }
+    
+    
+
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        new Start();
     }
 }

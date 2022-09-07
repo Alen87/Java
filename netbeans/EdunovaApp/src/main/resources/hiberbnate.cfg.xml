@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
 
-       
+        <!-- https://www.tutorialspoint.com/hibernate/hibernate_annotations.htm -->
 
         <property name="connection.url">jdbc:mariadb://localhost:3306/edunovahib?createDatabaseIfNotExist=true</property>
         <property name="connection.username">root</property>
