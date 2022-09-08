@@ -6,22 +6,24 @@
 package edunova;
 
 import edunova.util.HibernateUtil;
+import edunova.util.PocetniInsert;
+import java.math.BigDecimal;
 
 /**
  *
- * @author Alen
+ * @author dell
  */
 public class Start {
 
     public Start() {
-        
-     HibernateUtil.getSession();
-        
+       
+        PocetniInsert.izvedi();
+      
     }
     
     
 
     public static void main(String[] args) {
-        new Start();
+       new Start();
     }
 }
