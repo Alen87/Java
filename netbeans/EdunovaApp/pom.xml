@@ -24,12 +24,8 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.1.0.Final</version>
         </dependency>
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.0.0</version>
-            <type>jar</type>
-        </dependency>
+        
+       
     </dependencies>        
             
 </project>
