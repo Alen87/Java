@@ -5,24 +5,18 @@
 package alen.model;
 
 import java.math.BigDecimal;
-import jakarta.persistence.Entity;
-
 
 /**
  *
  * @author Alen
  */
-@Entity
 public class Smjer {
-    
-    @Id
-    @GeneratedValue(startegy =GenerationType.IDENTITY)
-    
+
     private Integer sifra;
     private String naziv;
     private BigDecimal cijena;
     private BigDecimal upisnina;
-    private  Boolean certificiran;
+    private Boolean certificiran;
 
     public Integer getSifra() {
         return sifra;
@@ -63,9 +57,5 @@ public class Smjer {
     public void setCertificiran(Boolean certificiran) {
         this.certificiran = certificiran;
     }
-    
-    
-    
-    
-    
+
 }
