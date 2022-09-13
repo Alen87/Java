@@ -13,14 +13,7 @@
     </properties>
     <dependencies>
         
-        <dependency>
-        <groupId>eclipse</groupId>
-        <artifactId>eclipse</artifactId>
-        <scope>system</scope>
-        <version>1.0</version>
-        <!-- Prilagoditi lokanu putanju -->
-        <systemPath>C:\Users\Alen\Documents\GitHub\Alen87\Java\netbeans\EdunovaAppPredavanje\lib\edunovaeclipse.jar</systemPath>
-      </dependency>
+  
         
         
         <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
