@@ -23,9 +23,7 @@ public class ObradaSmjer extends Obrada<Smjer> {
 
     @Override
     protected void kontrolaCreate() throws EdunovaException {
-        if (entitet == null) {
-            throw new EdunovaException("Smjer nije konstruiran");
-        }
+        
         kontrolaNaziv();
         kontrolaCijena();
 
@@ -40,6 +38,13 @@ public class ObradaSmjer extends Obrada<Smjer> {
     protected void kontrolaDelete() throws EdunovaException {
 
     }
+
+    @Override
+    protected String getNazivEntiteta() {
+        return "Smjer";
+    }
+    
+    
 
     private void kontrolaNaziv() throws EdunovaException {
 

@@ -34,5 +34,12 @@ public class ObradaGrupa extends Obrada<Grupa>{
     protected void kontrolaDelete() throws EdunovaException {
         
     }
+
+    @Override
+    protected String getNazivEntiteta() {
+       return "Grupa";
+    }
+    
+    
     
 }

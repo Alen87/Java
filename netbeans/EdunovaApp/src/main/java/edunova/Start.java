@@ -5,7 +5,9 @@
 
 package edunova;
 
+import edunova.controller.ObradaPolaznik;
 import edunova.controller.ObradaSmjer;
+import edunova.model.Polaznik;
 import edunova.model.Smjer;
 import edunova.util.EdunovaException;
 import edunova.util.HibernateUtil;
@@ -46,7 +48,18 @@ public class Start {
 //            System.out.println(ex.getPoruka());
 //        }
         
-        new PocetniInsert();
+        //new PocetniInsert();
+        
+        ObradaPolaznik op = new ObradaPolaznik();
+        Polaznik p = new Polaznik();
+        p.setIme("Pero");
+        p.setOib("52696585232");
+        op.setEntitet(p);
+        try {
+            op.create();
+        } catch (EdunovaException ex) {
+            System.out.println(ex.getPoruka());
+        }
       
     }
     
