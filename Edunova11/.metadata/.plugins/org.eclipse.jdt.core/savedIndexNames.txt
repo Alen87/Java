@@ -1,0 +1,1 @@
+INDEX VERSION 1.131+C:\Users\Alen\Documents\GitHub\Alen87\Java\Edunova11\.metadata\.plugins\org.eclipse.jdt.core
