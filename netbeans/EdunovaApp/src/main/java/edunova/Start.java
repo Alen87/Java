@@ -14,6 +14,7 @@ import edunova.util.EdunovaException;
 import edunova.util.HibernateUtil;
 import edunova.util.PocetniInsert;
 import edunova.util.Pomocno;
+import edunova.view.SplashScreen;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,8 +28,29 @@ import java.util.logging.Logger;
 public class Start {
 
     public Start() {
+        
+        
+        new SplashScreen().setVisible(true);
+        
+        
+        
+        
+        
+        
 
-//        PocetniInsert.izvedi();
+
+
+    }
+
+    public static void main(String[] args) {
+        new Start();
+    }
+    
+    private void testiranje(){
+        
+        
+        
+        //        PocetniInsert.izvedi();
 //        for(Smjer s : new ObradaSmjer().read()){
 //            System.out.println(s.getNaziv());         
 //        }
@@ -92,10 +114,8 @@ public class Start {
         } catch (EdunovaException ex) {
             System.out.println(ex.getPoruka());
         }
-
     }
-
-    public static void main(String[] args) {
-        new Start();
-    }
+    
+    
+    
 }
