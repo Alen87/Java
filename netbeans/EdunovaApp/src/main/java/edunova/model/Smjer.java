@@ -42,6 +42,13 @@ public class Smjer extends Entitet {
 	public void setCertificiran(Boolean certificiran) {
 		this.certificiran = certificiran;
 	}
+
+    @Override
+    public String toString() {
+       return naziv;
+    }
+        
+        
 	
 	
 }
