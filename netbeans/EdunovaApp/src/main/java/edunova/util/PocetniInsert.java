@@ -71,6 +71,7 @@ public class PocetniInsert {
         Polaznik p = new Polaznik();
         p.setIme(faker.address().firstName());
         p.setPrezime(faker.address().lastName());
+        p.setOib(Pomocno.dovuciOib());
         sess.persist(p);
         return p;
     }
@@ -85,6 +86,7 @@ public class PocetniInsert {
         Predavac p = new Predavac();
         p.setIme(faker.address().firstName());
         p.setPrezime(faker.address().lastName());
+        p.setOib(Pomocno.dovuciOib());
         sess.persist(p);
         return p;
     }

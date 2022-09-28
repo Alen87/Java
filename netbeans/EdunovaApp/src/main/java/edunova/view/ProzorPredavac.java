@@ -74,6 +74,7 @@ public class ProzorPredavac extends javax.swing.JFrame {
         btnDodaj = new javax.swing.JButton();
         btnPromjeni = new javax.swing.JButton();
         btnObrisi = new javax.swing.JButton();
+        txtDovuciOib = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -116,6 +117,13 @@ public class ProzorPredavac extends javax.swing.JFrame {
             }
         });
 
+        txtDovuciOib.setText("Dovuci Oib");
+        txtDovuciOib.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDovuciOibActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,7 +140,10 @@ public class ProzorPredavac extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(txtOib, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtOib, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(txtDovuciOib))
                     .addComponent(txtIban, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDodaj)
@@ -161,7 +172,9 @@ public class ProzorPredavac extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtOib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDovuciOib))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -234,13 +247,17 @@ public class ProzorPredavac extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 
+    private void txtDovuciOibActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDovuciOibActionPerformed
+       txtOib.setText(Pomocno.dovuciOib());
+    }//GEN-LAST:event_txtDovuciOibActionPerformed
+
     private void popuniView(){
         
         var e = obrada.getEntitet();
         txtIme.setText(e.getIme());
         txtPrezime.setText(e.getPrezime());
         txtEmail.setText(e.getEmail());
-        txtOib.setText(e.getEmail());
+        txtOib.setText(e.getOib());
         txtIban.setText(e.getIban());
         
     }
@@ -270,6 +287,7 @@ public class ProzorPredavac extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Predavac> lstEntiteti;
+    private javax.swing.JButton txtDovuciOib;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtIban;
     private javax.swing.JTextField txtIme;
