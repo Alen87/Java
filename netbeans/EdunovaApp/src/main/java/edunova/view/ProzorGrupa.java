@@ -4,15 +4,26 @@
  */
 package edunova.view;
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import edunova.controller.ObradaGrupa;
+import edunova.controller.ObradaPredavac;
+import edunova.controller.ObradaSmjer;
 import edunova.model.Grupa;
+import edunova.model.Predavac;
+import edunova.model.Smjer;
 import edunova.util.Pomocno;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author Alen
  */
 public class ProzorGrupa extends javax.swing.JFrame {
+
     private ObradaGrupa obrada;
 
     /**
@@ -20,20 +31,51 @@ public class ProzorGrupa extends javax.swing.JFrame {
      */
     public ProzorGrupa() {
         initComponents();
-        obrada=new ObradaGrupa();
+        obrada = new ObradaGrupa();
         postavke();
         ucitaj();
     }
-    
-    private void postavke(){
+
+    private void postavke() {
         setTitle(Pomocno.NAZIV_APLIKACIJE + " Grupe");
+
+        ucitajSmjerove();
+        UcitajPredavace();
+        prilagodiDatePicker();
+
     }
     
-    private void  ucitaj(){
+    private void prilagodiDatePicker(){
+        DatePickerSettings dps = new DatePickerSettings(new Locale("hr","HR"));
+        dps.setFormatForDatesCommonEra(Pomocno.FORMAT_DATUMA);
+        dps.setTranslationClear("Ocisti");
+        dps.setTranslationToday("Danas");
+        dpDatumPocetka.setSettings(dps);
         
+        
+        
+        
+    }
+    
+
+    private void ucitajSmjerove() {
+        DefaultComboBoxModel<Smjer> m = new DefaultComboBoxModel<>();
+        m.addAll(new ObradaSmjer().read());
+        cmbSmjerovi.setModel(m);
+    }
+
+    private void UcitajPredavace() {
+
+        DefaultComboBoxModel<Predavac> ml = new DefaultComboBoxModel<>();
+        ml.addAll(new ObradaPredavac().read());
+        cmbPredavaci.setModel(ml);
+
+    }
+
+    private void ucitaj() {
+
         lstEntiteti.setModel(new EdunovaListModel<>(obrada.read()));
-        
-        
+
     }
 
     /**
@@ -45,13 +87,35 @@ public class ProzorGrupa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateTimePicker1 = new com.github.lgooddatepicker.components.DateTimePicker();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstEntiteti = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        txtNaziv = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cmbSmjerovi = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        cmbPredavaci = new javax.swing.JComboBox<>();
+        dpDatumPocetka = new com.github.lgooddatepicker.components.DatePicker();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lstEntiteti.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstEntiteti.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstEntitetiValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lstEntiteti);
+
+        jLabel1.setText("Naziv");
+
+        jLabel2.setText("Smjer");
+
+        jLabel3.setText("Predavac");
+
+        jLabel4.setText("Datum Pocetka");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -59,22 +123,82 @@ public class ProzorGrupa extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 317, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNaziv, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                    .addComponent(cmbSmjerovi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbPredavaci, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(dpDatumPocetka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 96, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbSmjerovi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbPredavaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(5, 5, 5)
+                .addComponent(dpDatumPocetka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 38, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lstEntitetiValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstEntitetiValueChanged
+        if (evt.getValueIsAdjusting() || lstEntiteti.getSelectedValue() == null) {
+            return;
+        }
+        obrada.setEntitet(lstEntiteti.getSelectedValue());
+        popuniView();
+
+    }//GEN-LAST:event_lstEntitetiValueChanged
+    private void popuniView() {
+
+        var e = obrada.getEntitet();
+        txtNaziv.setText(e.getNaziv());
+        cmbSmjerovi.setSelectedItem(e.getSmjer());
+        cmbPredavaci.setSelectedItem(e.getPredavac());
+        
+       Date input = e.getDatumPocetka();
+       LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+       dpDatumPocetka.setDate(date);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Predavac> cmbPredavaci;
+    private javax.swing.JComboBox<Smjer> cmbSmjerovi;
+    private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
+    private com.github.lgooddatepicker.components.DatePicker dpDatumPocetka;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<Grupa> lstEntiteti;
+    private javax.swing.JTextField txtNaziv;
     // End of variables declaration//GEN-END:variables
 }
