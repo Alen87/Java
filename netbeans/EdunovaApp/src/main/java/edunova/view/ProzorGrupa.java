@@ -4,17 +4,36 @@
  */
 package edunova.view;
 
+import edunova.controller.ObradaGrupa;
+import edunova.model.Grupa;
+import edunova.util.Pomocno;
+
 /**
  *
  * @author Alen
  */
 public class ProzorGrupa extends javax.swing.JFrame {
+    private ObradaGrupa obrada;
 
     /**
      * Creates new form ProzorGrupa
      */
     public ProzorGrupa() {
         initComponents();
+        obrada=new ObradaGrupa();
+        postavke();
+        ucitaj();
+    }
+    
+    private void postavke(){
+        setTitle(Pomocno.NAZIV_APLIKACIJE + " Grupe");
+    }
+    
+    private void  ucitaj(){
+        
+        lstEntiteti.setModel(new EdunovaListModel<>(obrada.read()));
+        
+        
     }
 
     /**
@@ -26,17 +45,27 @@ public class ProzorGrupa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstEntiteti = new javax.swing.JList<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        lstEntiteti.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(lstEntiteti);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 317, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 96, Short.MAX_VALUE))
         );
 
         pack();
@@ -45,5 +74,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Grupa> lstEntiteti;
     // End of variables declaration//GEN-END:variables
 }
