@@ -19,6 +19,15 @@ public class ObradaPolaznik extends ObradaOsoba<Polaznik>{
         return session.createQuery("from Polaznik", Polaznik.class).list();
     }
 
+    public List<Polaznik> read(String uvjet) {
+        return session.createQuery("from Polaznik p where "
+                + " lower(concat(p.ime,' ',p.prezime)) like :uvjet",
+                Polaznik.class)
+                .setParameter("uvjet", "%"+ uvjet.toLowerCase()+ "%")
+                .setMaxResults(10)
+                .list();
+    }
+    
     @Override
     protected void kontrolaCreate() throws EdunovaException {
         super.kontrolaCreate(); 
