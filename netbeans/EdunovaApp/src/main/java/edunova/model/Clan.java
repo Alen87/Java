@@ -52,6 +52,11 @@ public class Clan extends Entitet {
     public void setNapomena(String napomena) {
         this.napomena = napomena;
     }
+
+    @Override
+    public String toString() {
+        return polaznik.toString();
+    }
     
     
     
