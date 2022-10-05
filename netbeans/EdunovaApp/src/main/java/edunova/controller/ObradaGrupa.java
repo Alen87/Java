@@ -19,27 +19,18 @@ import java.util.List;
  * @author dell
  */
 public class ObradaGrupa extends Obrada<Grupa> {
-    
-    public void update()throws EdunovaException{
+
+    public void update() throws EdunovaException {
         //kontrolaUpdate();
         session.beginTransaction();
-        for(Clan c:entitet.getClanovi()){
+        for (Clan c : entitet.getClanovi()) {
             session.persist(c);
         }
-        
+
         session.persist(entitet);
         session.getTransaction().commit();
-        
-        
-        
+
     }
-    
-    
-    
-    
-    
-    
-    
 
     @Override
     public List<Grupa> read() {
@@ -69,18 +60,18 @@ public class ObradaGrupa extends Obrada<Grupa> {
 
     private void kontrolaDatumPocetka() throws EdunovaException {
         kontrolaDatumPocetkaObavezno();
-        kontrolaDatumPocetkaVeciOdDanas();      
+        kontrolaDatumPocetkaVeciOdDanas();
         kontrolaDatumPocetkaMoraBitiRadniDan();
         kontrolaDatumPocetkaNemaGrupeKojaPocinjeNaTajDan();
     }
 
     private void kontrolaDatumPocetkaObavezno() throws EdunovaException {
         if (entitet.getDatumPocetka() == null) {
-            throw new EdunovaException("Datum početka obavezno. npr " 
+            throw new EdunovaException("Datum početka obavezno. npr "
                     + Pomocno.getPrimjerDatuma());
         }
     }
-    
+
     private void kontrolaDatumPocetkaVeciOdDanas() throws EdunovaException {
         GregorianCalendar k = (GregorianCalendar) Calendar.getInstance();
         k.setTime(new Date());
@@ -88,21 +79,21 @@ public class ObradaGrupa extends Obrada<Grupa> {
         k.set(Calendar.MINUTE, 0);
         k.set(Calendar.SECOND, 0);
         k.set(Calendar.MILLISECOND, 0);
-        if(entitet.getDatumPocetka().before(k.getTime())){
-            throw new EdunovaException("Datum početka ne može biti prije danas " + 
-                    Pomocno.getPrimjerDatuma());
+        if (entitet.getDatumPocetka().before(k.getTime())) {
+            throw new EdunovaException("Datum početka ne može biti prije danas "
+                    + Pomocno.getPrimjerDatuma());
         }
     }
 
-    private void kontrolaDatumPocetkaMoraBitiRadniDan()throws EdunovaException {
+    private void kontrolaDatumPocetkaMoraBitiRadniDan() throws EdunovaException {
         GregorianCalendar k = (GregorianCalendar) Calendar.getInstance();
         k.setTime(entitet.getDatumPocetka());
-        if (k.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY ||
-                k.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY){
+        if (k.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
+                || k.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             SimpleDateFormat df = new SimpleDateFormat("EEEE");
-             throw new EdunovaException("Datum početka mora biti radni dan. "
-                     + "Postavljeni datum je " +
-                     df.format(entitet.getDatumPocetka()));
+            throw new EdunovaException("Datum početka mora biti radni dan. "
+                    + "Postavljeni datum je "
+                    + df.format(entitet.getDatumPocetka()));
         }
     }
 
@@ -116,10 +107,22 @@ public class ObradaGrupa extends Obrada<Grupa> {
         } catch (Exception e) {
         }
         if (g != null) {
-            throw new EdunovaException("Grupa " + g.getNaziv() 
+            throw new EdunovaException("Grupa " + g.getNaziv()
                     + " počinje na uneseni datum");
         }
     }
 
+    public void pocistiClanove() {
+
+        session.beginTransaction();
+        for (Clan e : entitet.getClanovi()) {
+
+            session.remove(e);
+
+        }
+        
+        session.getTransaction().commit();
+        
+    }
 
 }

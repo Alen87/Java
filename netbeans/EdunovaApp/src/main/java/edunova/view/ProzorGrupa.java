@@ -450,7 +450,7 @@ private void popuniModel(){
     
     // Clanovi
     DefaultListModel<Clan> m = (DefaultListModel<Clan>)lstClanoviGrupe.getModel();
-    e.setClanovi(new ArrayList<>());
+    e.pocistiClanove();
     for(int i = 0;i<m.size();i++){
      e.getClanovi().add(m.getElementAt(i));
     }

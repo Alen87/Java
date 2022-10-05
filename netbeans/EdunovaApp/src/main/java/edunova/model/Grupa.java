@@ -65,6 +65,8 @@ public class Grupa extends Entitet {
     public String toString() {
         return naziv;
     }
+
+    
 	
 	
 	
