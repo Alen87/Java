@@ -4,6 +4,7 @@
  */
 package edunova.controller;
 
+import edunova.model.Clan;
 import edunova.model.Grupa;
 import edunova.util.EdunovaException;
 import edunova.util.Pomocno;
@@ -18,6 +19,27 @@ import java.util.List;
  * @author dell
  */
 public class ObradaGrupa extends Obrada<Grupa> {
+    
+    public void update()throws EdunovaException{
+        //kontrolaUpdate();
+        session.beginTransaction();
+        for(Clan c:entitet.getClanovi()){
+            session.persist(c);
+        }
+        
+        session.persist(entitet);
+        session.getTransaction().commit();
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
 
     @Override
     public List<Grupa> read() {
