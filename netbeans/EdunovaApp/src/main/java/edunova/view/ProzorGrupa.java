@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -450,10 +451,12 @@ private void popuniModel(){
     
     // Clanovi
     DefaultListModel<Clan> m = (DefaultListModel<Clan>)lstClanoviGrupe.getModel();
-    e.pocistiClanove();
+    e.setClanovi(new ArrayList<>());
     for(int i = 0;i<m.size();i++){
-     e.getClanovi().add(m.getElementAt(i));
+        e.getClanovi().add(m.getElementAt(i));
+     
     }
+    
     
     
     

@@ -9,6 +9,7 @@ import edunova.model.Grupa;
 import edunova.util.EdunovaException;
 import edunova.util.Pomocno;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -56,6 +57,10 @@ public class ObradaGrupa extends Obrada<Grupa> {
     @Override
     protected String getNazivEntiteta() {
         return "Grupa";
+    }
+    
+    public void prijePromjeneKontrola() throws EdunovaException{
+        kontrolaUpdate();
     }
 
     private void kontrolaDatumPocetka() throws EdunovaException {
@@ -122,7 +127,7 @@ public class ObradaGrupa extends Obrada<Grupa> {
         }
         
         session.getTransaction().commit();
-        
+        entitet.setClanovi(new ArrayList<>());
     }
 
 }
