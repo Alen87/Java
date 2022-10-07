@@ -41,7 +41,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
     public ProzorGrupa() {
         initComponents();
         obrada = new ObradaGrupa();
-        obradaPolaznik= new ObradaPolaznik();
+        obradaPolaznik = new ObradaPolaznik();
         postavke();
         ucitaj();
     }
@@ -54,19 +54,15 @@ public class ProzorGrupa extends javax.swing.JFrame {
         prilagodiDatePicker();
 
     }
-    
-    private void prilagodiDatePicker(){
-        DatePickerSettings dps = new DatePickerSettings(new Locale("hr","HR"));
+
+    private void prilagodiDatePicker() {
+        DatePickerSettings dps = new DatePickerSettings(new Locale("hr", "HR"));
         dps.setFormatForDatesCommonEra(Pomocno.FORMAT_DATUMA);
         dps.setTranslationClear("Ocisti");
         dps.setTranslationToday("Danas");
         dpDatumPocetka.setSettings(dps);
-        
-        
-        
-        
+
     }
-    
 
     private void ucitajSmjerove() {
         DefaultComboBoxModel<Smjer> m = new DefaultComboBoxModel<>();
@@ -124,6 +120,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
         btnObrisiPolaznika = new javax.swing.JButton();
         btnDodajPolaznika = new javax.swing.JButton();
         btnPromjeni = new javax.swing.JButton();
+        txtDodaj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -197,6 +194,13 @@ public class ProzorGrupa extends javax.swing.JFrame {
             }
         });
 
+        txtDodaj.setText("Dodaj");
+        txtDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDodajActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -222,7 +226,9 @@ public class ProzorGrupa extends javax.swing.JFrame {
                                     .addComponent(txtMaksimalnoPolaznika)
                                     .addComponent(jLabel5)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDodaj)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPromjeni)))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -280,7 +286,9 @@ public class ProzorGrupa extends javax.swing.JFrame {
                                             .addComponent(dpDatumPocetka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtMaksimalnoPolaznika, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(35, 35, 35)
-                                        .addComponent(btnPromjeni))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(btnPromjeni)
+                                            .addComponent(txtDodaj)))
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                                     .addComponent(jScrollPane1)))
                             .addGroup(layout.createSequentialGroup()
@@ -316,34 +324,33 @@ public class ProzorGrupa extends javax.swing.JFrame {
     }//GEN-LAST:event_lstEntitetiValueChanged
 
     private void lstClanoviGrupeValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClanoviGrupeValueChanged
-        if(evt.getValueIsAdjusting() || lstClanoviGrupe.getSelectedValue() == null){
+        if (evt.getValueIsAdjusting() || lstClanoviGrupe.getSelectedValue() == null) {
             return;
         }
         taNapomena.setText(lstClanoviGrupe.getSelectedValue().getNapomena());
-        
+
     }//GEN-LAST:event_lstClanoviGrupeValueChanged
 
     private void taNapomenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taNapomenaKeyTyped
-        if(lstClanoviGrupe.getSelectedValue() == null){
-           return;
-       }
-       
-       var s = taNapomena.getText() + evt.getKeyChar();
-       
+        if (lstClanoviGrupe.getSelectedValue() == null) {
+            return;
+        }
+
+        var s = taNapomena.getText() + evt.getKeyChar();
+
 //       for(int i=0;i<s.length();i++){
 //           System.out.println((int)s.charAt(i) + ": " + s.charAt(i));
 //       }
-       
-      s=s.replace((char)22,(char)0);
+        s = s.replace((char) 22, (char) 0);
 
-       lstClanoviGrupe.getSelectedValue().setNapomena(s);
-       
-       
+        lstClanoviGrupe.getSelectedValue().setNapomena(s);
+
+
     }//GEN-LAST:event_taNapomenaKeyTyped
 
     private void btnTraziPolaznikaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraziPolaznikaActionPerformed
-      
-         // loše
+
+        // loše
         /*
         DefaultListModel<Polaznik> m = new DefaultListModel<>();
         
@@ -356,112 +363,119 @@ public class ProzorGrupa extends javax.swing.JFrame {
         
        
         lstPolazniciUBazi.setModel(m);
-*/
-        
-        
-        
-        
+         */
         lstPolazniciUBazi.setModel(new EdunovaListModel<>(obradaPolaznik.read(txtUvjet.getText().trim())));
     }//GEN-LAST:event_btnTraziPolaznikaActionPerformed
 
     private void btnDodajPolaznikaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajPolaznikaActionPerformed
-       if(lstEntiteti.getSelectedValue()==null){
-           JOptionPane.showMessageDialog(rootPane, "Prvo odaberite grupu s lijeve  strane");
-           return;
-       }
        
-        DefaultListModel<Clan> m = (DefaultListModel<Clan>)lstClanoviGrupe.getModel();
-       
+        if(lstClanoviGrupe.getModel()==null){
+            lstClanoviGrupe.setModel(new DefaultListModel<>());
+        }
         
+        
+        
+        DefaultListModel<Clan> m = (DefaultListModel<Clan>) lstClanoviGrupe.getModel();
+
         Clan c;
-        for(Polaznik p : lstPolazniciUBazi.getSelectedValuesList()){
+        for (Polaznik p : lstPolazniciUBazi.getSelectedValuesList()) {
             c = new Clan();
             c.setGrupa(obrada.getEntitet());
             c.setPolaznik(p);
             c.setNapomena("");
             m.addElement(c);
         }
-        
-       lstClanoviGrupe.repaint();
+
+        lstClanoviGrupe.repaint();
     }//GEN-LAST:event_btnDodajPolaznikaActionPerformed
 
     private void btnObrisiPolaznikaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiPolaznikaActionPerformed
-        
-        DefaultListModel<Clan>m = (DefaultListModel<Clan>)lstClanoviGrupe.getModel();
-        
-        for(Clan c : lstClanoviGrupe.getSelectedValuesList()){
+
+        DefaultListModel<Clan> m = (DefaultListModel<Clan>) lstClanoviGrupe.getModel();
+
+        for (Clan c : lstClanoviGrupe.getSelectedValuesList()) {
             m.removeElement(c);
         }
-        
-       lstClanoviGrupe.repaint();
-        
-        
+
+        lstClanoviGrupe.repaint();
+
+
     }//GEN-LAST:event_btnObrisiPolaznikaActionPerformed
 
     private void btnPromjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjeniActionPerformed
-        if(obrada.getEntitet()==null){
+        if (obrada.getEntitet() == null) {
             return;
         }
-        
+
         popuniModel();
-        
+
         try {
             obrada.update();
             ucitaj();
-        } catch (EdunovaException  e) {
+        } catch (EdunovaException e) {
             JOptionPane.showMessageDialog(rootPane, e.getPoruka());
         }
-        
-        
+
+
     }//GEN-LAST:event_btnPromjeniActionPerformed
+
+    private void txtDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDodajActionPerformed
+        obrada.setEntitet(new Grupa());
+        popuniModel();
+        try {
+            obrada.create();
+            ucitaj();
+
+        } catch (EdunovaException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getPoruka());
+        }
+
+
+    }//GEN-LAST:event_txtDodajActionPerformed
     private void popuniView() {
 
         var e = obrada.getEntitet();
         txtNaziv.setText(e.getNaziv());
         cmbSmjerovi.setSelectedItem(e.getSmjer());
         cmbPredavaci.setSelectedItem(e.getPredavac());
-        
-       Date input = e.getDatumPocetka();
-       LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-       dpDatumPocetka.setDate(date);
-       
-       txtMaksimalnoPolaznika.setText(String.valueOf(e.getMaksimalnoPolaznika()));
-       lstClanoviGrupe.setModel(new EdunovaListModel<>(e.getClanovi()));
-       
-       
-       
-       
+
+        Date input = e.getDatumPocetka();
+        LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        dpDatumPocetka.setDate(date);
+
+        txtMaksimalnoPolaznika.setText(String.valueOf(e.getMaksimalnoPolaznika()));
+        lstClanoviGrupe.setModel(new EdunovaListModel<>(e.getClanovi()));
+
     }
-private void popuniModel(){
-    var e = obrada.getEntitet();
-    e.setNaziv(txtNaziv.getText());
-    e.setSmjer((Smjer) cmbSmjerovi.getSelectedItem());
-    e.setPredavac((Predavac) cmbPredavaci.getSelectedItem());
-    //datum
-    e.setDatumPocetka(Date.from(dpDatumPocetka.getDate().atStartOfDay()
-      .atZone(ZoneId.systemDefault())
-      .toInstant()));
-    //Maksimalno polaznika
-    try {
-        e.setMaksimalnoPolaznika(Integer.parseInt(txtMaksimalnoPolaznika.getText()));
-    } catch (Exception ex) {
-        e.setMaksimalnoPolaznika(0);
+
+    private void popuniModel() {
+        var e = obrada.getEntitet();
+        e.setNaziv(txtNaziv.getText());
+        e.setSmjer((Smjer) cmbSmjerovi.getSelectedItem());
+        e.setPredavac((Predavac) cmbPredavaci.getSelectedItem());
+        //datum
+        e.setDatumPocetka(Date.from(dpDatumPocetka.getDate().atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()));
+        //Maksimalno polaznika
+        try {
+            e.setMaksimalnoPolaznika(Integer.parseInt(txtMaksimalnoPolaznika.getText()));
+        } catch (Exception ex) {
+            e.setMaksimalnoPolaznika(0);
+        }
+
+        // Clanovi
+        DefaultListModel<Clan> m = (DefaultListModel<Clan>) lstClanoviGrupe.getModel();
+
+        List<Clan> noviClanovi = new ArrayList<>();
+        for (int i = 0; i < m.size(); i++) {
+            noviClanovi.add(m.getElementAt(i));
+
+        }
+
+        obrada.setNoviClanovi(noviClanovi);
+
     }
-    
-    
-    // Clanovi
-    DefaultListModel<Clan> m = (DefaultListModel<Clan>)lstClanoviGrupe.getModel();
-    
-   obrada.pocistiClanove();
-    for(int i = 0;i<m.size();i++){
-        e.getClanovi().add(m.getElementAt(i));
-     
-    }
-    
-    
-    
-    
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodajPolaznika;
@@ -488,6 +502,7 @@ private void popuniModel(){
     private javax.swing.JList<Grupa> lstEntiteti;
     private javax.swing.JList<Polaznik> lstPolazniciUBazi;
     private javax.swing.JTextArea taNapomena;
+    private javax.swing.JButton txtDodaj;
     private javax.swing.JTextField txtMaksimalnoPolaznika;
     private javax.swing.JTextField txtNaziv;
     private javax.swing.JTextField txtUvjet;
