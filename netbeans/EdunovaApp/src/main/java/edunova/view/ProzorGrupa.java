@@ -402,6 +402,11 @@ public class ProzorGrupa extends javax.swing.JFrame {
         if(obrada.getEntitet()==null){
             return;
         }
+        try {
+            obrada.prijePromjeneKontrola();
+        } catch (EdunovaException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getPoruka());
+        }
         
         popuniModel();
         
@@ -451,7 +456,8 @@ private void popuniModel(){
     
     // Clanovi
     DefaultListModel<Clan> m = (DefaultListModel<Clan>)lstClanoviGrupe.getModel();
-    e.setClanovi(new ArrayList<>());
+    
+   obrada.pocistiClanove();
     for(int i = 0;i<m.size();i++){
         e.getClanovi().add(m.getElementAt(i));
      

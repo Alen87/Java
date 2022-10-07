@@ -24,6 +24,7 @@ public class ObradaGrupa extends Obrada<Grupa> {
     public void update() throws EdunovaException {
         //kontrolaUpdate();
         session.beginTransaction();
+        
         for (Clan c : entitet.getClanovi()) {
             session.persist(c);
         }
