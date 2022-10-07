@@ -402,11 +402,6 @@ public class ProzorGrupa extends javax.swing.JFrame {
         if(obrada.getEntitet()==null){
             return;
         }
-        try {
-            obrada.prijePromjeneKontrola();
-        } catch (EdunovaException e) {
-            JOptionPane.showMessageDialog(rootPane, e.getPoruka());
-        }
         
         popuniModel();
         

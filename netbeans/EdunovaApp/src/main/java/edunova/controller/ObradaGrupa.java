@@ -20,8 +20,11 @@ import java.util.List;
  * @author dell
  */
 public class ObradaGrupa extends Obrada<Grupa> {
-
-    public void update() throws EdunovaException {
+    
+    private List<Clan> noviClanovi;
+    
+     @Override
+     public void update() throws EdunovaException {
         //kontrolaUpdate();
         session.beginTransaction();
         
@@ -60,9 +63,7 @@ public class ObradaGrupa extends Obrada<Grupa> {
         return "Grupa";
     }
     
-    public void prijePromjeneKontrola() throws EdunovaException{
-        kontrolaUpdate();
-    }
+   
 
     private void kontrolaDatumPocetka() throws EdunovaException {
         kontrolaDatumPocetkaObavezno();
@@ -118,17 +119,17 @@ public class ObradaGrupa extends Obrada<Grupa> {
         }
     }
 
-    public void pocistiClanove() {
-
-        session.beginTransaction();
-        for (Clan e : entitet.getClanovi()) {
-
-            session.remove(e);
-
-        }
-        
-        session.getTransaction().commit();
-        entitet.setClanovi(new ArrayList<>());
+   
+    public List<Clan> getNoviClanovi() {
+        return noviClanovi;
     }
+
+    public void setNoviClanovi(List<Clan> noviClanovi) {
+        this.noviClanovi = noviClanovi;
+    }
+    
+    
+    
+    
 
 }
