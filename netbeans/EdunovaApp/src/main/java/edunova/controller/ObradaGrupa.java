@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,12 +28,13 @@ public class ObradaGrupa extends Obrada<Grupa> {
     public void create() throws EdunovaException {
         kontrolaCreate();
         session.beginTransaction();
-
+        session.persist(entitet);
         for (Clan c : noviClanovi) {
+            c.setGrupa(entitet);
             session.persist(c);
         }
         entitet.setClanovi(noviClanovi);
-        session.persist(entitet);
+        
         session.getTransaction().commit();
 
     }
@@ -55,6 +57,27 @@ public class ObradaGrupa extends Obrada<Grupa> {
     }
 
     @Override
+    public void delete() throws EdunovaException {
+        kontrolaDelete();
+        session.beginTransaction();
+
+        for (Clan c : entitet.getClanovi()) {
+            session.remove(c);
+        }
+      
+       
+        session.remove(entitet);
+        session.getTransaction().commit();
+
+        
+        
+    }
+    
+    
+    
+    
+
+    @Override
     public List<Grupa> read() {
         // from Grupa označava sve entitete klase Grupa. Ne ide se na ime tablice već se ide na ime klase
         return session.createQuery("from Grupa", Grupa.class).list();
@@ -62,6 +85,8 @@ public class ObradaGrupa extends Obrada<Grupa> {
 
     @Override
     protected void kontrolaCreate() throws EdunovaException {
+        kontrolNaziv();
+        kontrolaBrojPolaznika();
         kontrolaDatumPocetka();
     }
 
@@ -72,6 +97,9 @@ public class ObradaGrupa extends Obrada<Grupa> {
 
     @Override
     protected void kontrolaDelete() throws EdunovaException {
+      if(!noviClanovi.isEmpty()) {
+          throw new EdunovaException("Ne moze se obrisati grupa  koja  ima  clanove ");
+      } 
 
     }
 
@@ -79,6 +107,27 @@ public class ObradaGrupa extends Obrada<Grupa> {
     protected String getNazivEntiteta() {
         return "Grupa";
     }
+    
+    private void kontrolNaziv() throws EdunovaException {
+    
+        if(entitet.getNaziv()==null || entitet.getNaziv().isEmpty()){
+            throw new EdunovaException("Naziv  grupe obvezno");
+        }
+        
+    }
+    
+    private void kontrolaBrojPolaznika() throws EdunovaException{
+        if(entitet.getMaksimalnoPolaznika() != null && entitet.getMaksimalnoPolaznika()> 0){
+             if(entitet.getMaksimalnoPolaznika() < noviClanovi.size()){
+                 throw new EdunovaException("Grupa ima  vise  clanova od  maksimalnog  broja  clanova ");
+             }             
+        }
+        
+        
+        
+    }
+    
+    
 
     private void kontrolaDatumPocetka() throws EdunovaException {
         kontrolaDatumPocetkaObavezno();
@@ -141,5 +190,7 @@ public class ObradaGrupa extends Obrada<Grupa> {
     public void setNoviClanovi(List<Clan> noviClanovi) {
         this.noviClanovi = noviClanovi;
     }
+
+    
 
 }
