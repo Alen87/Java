@@ -8,11 +8,11 @@ import jakarta.persistence.Entity;
 
 /**
  *
- * @author Alen
+ * @author dell
  */
 @Entity
-public class Operater extends Osoba {
-
+public class Operater extends Osoba{
+    
     private String lozinka;
 
     public String getLozinka() {
@@ -22,5 +22,6 @@ public class Operater extends Osoba {
     public void setLozinka(String lozinka) {
         this.lozinka = lozinka;
     }
-
+    
+    
 }

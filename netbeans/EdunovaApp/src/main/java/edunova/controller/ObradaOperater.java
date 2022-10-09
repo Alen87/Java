@@ -11,9 +11,9 @@ import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
- * @author Alen
+ * @author dell
  */
-public class ObradaOperater extends ObradaOsoba {
+public class ObradaOperater extends ObradaOsoba<Operater> {
 
     public Operater autoriziraj(String email, char[] lozinka) {
         Operater o;
@@ -25,22 +25,22 @@ public class ObradaOperater extends ObradaOsoba {
         } catch (NoResultException e) {
             return null;
         }
-
-        if (BCrypt.checkpw(new String(lozinka), o.getLozinka())) {
+        
+        if(BCrypt.checkpw(new String(lozinka), o.getLozinka())){
             Operater vrati = new Operater();
             vrati.setSifra(o.getSifra());
             vrati.setIme(o.getIme());
             vrati.setPrezime(o.getPrezime());
             vrati.setEmail(o.getEmail());
-            //ne  postavljamo  lozinku da  ne  bude  u  memoriji
-            return vrati;
-
+            // ne postavljamo lozinku da ne bude u memoriji
+            return vrati;     
         }
+        
         return null;
     }
 
     @Override
-    public List read() {
+    public List<Operater> read() {
         return session.createQuery("from Operater", Operater.class).list();
     }
 

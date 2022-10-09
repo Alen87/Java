@@ -8,10 +8,9 @@ import java.util.List;
 public class Predavac extends Osoba {
 
     private String iban;
-    
-    @OneToMany(mappedBy="predavac")
-    private List<Grupa>grupe;
-    
+
+    @OneToMany(mappedBy = "predavac")
+    private List<Grupa> grupe;
 
     public Predavac() {
         super();
@@ -32,8 +31,5 @@ public class Predavac extends Osoba {
     public void setGrupe(List<Grupa> grupe) {
         this.grupe = grupe;
     }
-    
-    
-    
 
 }

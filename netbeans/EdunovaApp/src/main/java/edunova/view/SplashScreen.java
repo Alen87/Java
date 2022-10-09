@@ -12,7 +12,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Alen
+ * @author dell
  */
 public class SplashScreen extends javax.swing.JFrame {
 
@@ -22,43 +22,33 @@ public class SplashScreen extends javax.swing.JFrame {
     public SplashScreen() {
         initComponents();
         ucitaj();
-        
     }
+    
     private void ucitaj(){
-         Ucitanje u = new Ucitanje();
-         u.start();
-        
+        Ucitanje u = new Ucitanje();
+        u.start();
     }
     
     private class Ucitanje extends Thread{
 
         @Override
         public void run() {
-           
             Session s = HibernateUtil.getSession();
             if(!s.getMetamodel().getEntities().isEmpty()){
-                ObradaOperater op =  new ObradaOperater();
+                ObradaOperater op = new ObradaOperater();
                 if(op.read().isEmpty()){
-                new PocetniInsert();
+                    new PocetniInsert();
                 }
                 
                 new Login().setVisible(true);
                 dispose();
-                
-                
             }else{
-                JOptionPane.showMessageDialog(rootPane, "Problem s  bazom podataka");
+                JOptionPane.showMessageDialog(rootPane,
+                        "Problem s bazom podataka");
             }
         }
         
-        
-        
-        
-        
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,17 +65,17 @@ public class SplashScreen extends javax.swing.JFrame {
         setUndecorated(true);
         setType(java.awt.Window.Type.UTILITY);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo_izvorni.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edunova.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -93,6 +83,7 @@ public class SplashScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables

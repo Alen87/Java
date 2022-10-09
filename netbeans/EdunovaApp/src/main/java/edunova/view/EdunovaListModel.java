@@ -9,16 +9,13 @@ import javax.swing.DefaultListModel;
 
 /**
  *
- * @author Alen
+ * @author dell
  */
-public class EdunovaListModel<T> extends DefaultListModel<T> {
+public class EdunovaListModel<T> 
+        extends DefaultListModel<T>{
 
     public EdunovaListModel(List<T> podaci) {
-        
         super();
         addAll(podaci);
-        
-        
     }
-
 }

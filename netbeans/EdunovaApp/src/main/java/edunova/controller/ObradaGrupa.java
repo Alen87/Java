@@ -14,7 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,14 +35,25 @@ public class ObradaGrupa extends Obrada<Grupa> {
         entitet.setClanovi(noviClanovi);
         
         session.getTransaction().commit();
-
     }
+
+    @Override
+    public void delete() throws EdunovaException {
+        kontrolaDelete();
+        session.beginTransaction();
+        for (Clan c : entitet.getClanovi()) {
+            session.remove(c);
+        }
+        session.remove(entitet);
+        session.getTransaction().commit();
+    }
+    
+    
 
     @Override
     public void update() throws EdunovaException {
         kontrolaUpdate();
         session.beginTransaction();
-
         for (Clan c : entitet.getClanovi()) {
             session.remove(c);
         }
@@ -53,29 +63,7 @@ public class ObradaGrupa extends Obrada<Grupa> {
         entitet.setClanovi(noviClanovi);
         session.persist(entitet);
         session.getTransaction().commit();
-
     }
-
-    @Override
-    public void delete() throws EdunovaException {
-        kontrolaDelete();
-        session.beginTransaction();
-
-        for (Clan c : entitet.getClanovi()) {
-            session.remove(c);
-        }
-      
-       
-        session.remove(entitet);
-        session.getTransaction().commit();
-
-        
-        
-    }
-    
-    
-    
-    
 
     @Override
     public List<Grupa> read() {
@@ -85,7 +73,8 @@ public class ObradaGrupa extends Obrada<Grupa> {
 
     @Override
     protected void kontrolaCreate() throws EdunovaException {
-        kontrolNaziv();
+        kontrolaNaziv();
+        kontrolaSmjer();
         kontrolaBrojPolaznika();
         kontrolaDatumPocetka();
     }
@@ -93,41 +82,37 @@ public class ObradaGrupa extends Obrada<Grupa> {
     @Override
     protected void kontrolaUpdate() throws EdunovaException {
 
+        kontrolaCreate();
+        
     }
 
     @Override
     protected void kontrolaDelete() throws EdunovaException {
-      if(!noviClanovi.isEmpty()) {
-          throw new EdunovaException("Ne moze se obrisati grupa  koja  ima  clanove ");
-      } 
-
+        if(!noviClanovi.isEmpty()){
+            throw new EdunovaException("Ne može se obrisati grupa koja ima članove");
+        }
     }
 
     @Override
     protected String getNazivEntiteta() {
         return "Grupa";
     }
-    
-    private void kontrolNaziv() throws EdunovaException {
-    
-        if(entitet.getNaziv()==null || entitet.getNaziv().isEmpty()){
-            throw new EdunovaException("Naziv  grupe obvezno");
+
+    private void kontrolaNaziv() throws EdunovaException {
+        if (entitet.getNaziv() == null || entitet.getNaziv().isEmpty()) {
+            throw new EdunovaException("Naziv obavezno");
         }
-        
     }
-    
-    private void kontrolaBrojPolaznika() throws EdunovaException{
-        if(entitet.getMaksimalnoPolaznika() != null && entitet.getMaksimalnoPolaznika()> 0){
-             if(entitet.getMaksimalnoPolaznika() < noviClanovi.size()){
-                 throw new EdunovaException("Grupa ima  vise  clanova od  maksimalnog  broja  clanova ");
-             }             
+
+    private void kontrolaBrojPolaznika() throws EdunovaException {
+        if (entitet.getMaksimalnoPolaznika() != null
+                && entitet.getMaksimalnoPolaznika() > 0) {
+            if (entitet.getMaksimalnoPolaznika() < noviClanovi.size()) {
+                throw new EdunovaException("Grupa ima više članova od maksimalnog broja članova");
+            }
+
         }
-        
-        
-        
     }
-    
-    
 
     private void kontrolaDatumPocetka() throws EdunovaException {
         kontrolaDatumPocetkaObavezno();
@@ -191,6 +176,11 @@ public class ObradaGrupa extends Obrada<Grupa> {
         this.noviClanovi = noviClanovi;
     }
 
-    
+    private void kontrolaSmjer() throws EdunovaException {
+        if (entitet.getSmjer()== null ) {
+            throw new EdunovaException("Smjer obavezno");
+        }
+        
+    }
 
 }

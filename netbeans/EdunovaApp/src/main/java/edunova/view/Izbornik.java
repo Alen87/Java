@@ -9,22 +9,22 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Alen
+ * @author dell
  */
 public class Izbornik extends javax.swing.JFrame {
 
     /**
-     * Creates new form izbornik
+     * Creates new form Izbornik
      */
     public Izbornik() {
         initComponents();
         postavke();
     }
-
-    private void postavke() {
-        setTitle(Pomocno.NAZIV_APLIKACIJE + " "
-                + Pomocno.operater.getIme() + " "
-                + Pomocno.operater.getPrezime());
+    
+    private void postavke(){
+        setTitle(Pomocno.NAZIV_APLIKACIJE + " " + 
+                Pomocno.operater.getIme() + " " + 
+                Pomocno.operater.getPrezime());
     }
 
     /**
@@ -42,11 +42,12 @@ public class Izbornik extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jMenu1.setText("Programi");
 
@@ -58,7 +59,7 @@ public class Izbornik extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Predavaci");
+        jMenuItem3.setText("Predavači");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -82,7 +83,15 @@ public class Izbornik extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem5);
 
-        jMenuItem6.setText("Izlaz");
+        jMenuItem7.setText("Odjava");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
+        jMenuItem6.setText("Izlaz iz programa");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -92,7 +101,7 @@ public class Izbornik extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Pomoc");
+        jMenu2.setText("Pomoć");
 
         jMenuItem1.setText("O aplikaciji");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -122,22 +131,24 @@ public class Izbornik extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       JOptionPane.showMessageDialog(rootPane,
-               Pomocno.NAZIV_APLIKACIJE + "\nAutor: Alen Boric",
-               "O aplikaciji",
-               JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(rootPane, 
+                Pomocno.NAZIV_APLIKACIJE + 
+                        "\nAutor: Edunova", 
+                "O aplikaciji", 
+                JOptionPane.OK_OPTION);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-      dispose();
+        System.exit(0);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-      new  ProzorSmjer().setVisible(true);
+        // otvoriti JFrame ProzorSmjer
+        new ProzorSmjer().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       new ProzorPredavac().setVisible(true);
+        new ProzorPredavac().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -145,9 +156,16 @@ public class Izbornik extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       new ProzorGrupa().setVisible(true);
+        new ProzorGrupa().setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        Pomocno.operater=null;
+        new Login().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -159,5 +177,6 @@ public class Izbornik extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }

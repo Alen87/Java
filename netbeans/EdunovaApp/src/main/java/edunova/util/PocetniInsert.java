@@ -111,7 +111,7 @@ public class PocetniInsert {
         sess.persist(g);
         Clan c;
         // ovdje popraviti
-        for(int t=i*10;t<(t*10)+10;t++){
+        for(int t=i*5;t<(t*5)+5;t++){
             if(t>=polaznici.size()){
                 continue;
             }
@@ -129,9 +129,9 @@ public class PocetniInsert {
     private void kreirajOperatera() {
         Operater o = new Operater();
         o.setIme("Marija");
-        o.setPrezime("Javic");
+        o.setPrezime("Javić");
         o.setEmail("mjavic@edunova.hr");
-        o.setLozinka(BCrypt.hashpw("m",BCrypt.gensalt()));
+        o.setLozinka(BCrypt.hashpw("m", BCrypt.gensalt()));
         sess.persist(o);
     }
     

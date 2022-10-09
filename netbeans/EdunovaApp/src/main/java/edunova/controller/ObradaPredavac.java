@@ -16,7 +16,7 @@ public class ObradaPredavac extends ObradaOsoba<Predavac> {
 
     @Override
     public List<Predavac> read() {
-        return session.createQuery("from Predavac", Predavac.class).list();
+        return session.createQuery("from Predavac",Predavac.class).list();
     }
 
     @Override
@@ -26,11 +26,14 @@ public class ObradaPredavac extends ObradaOsoba<Predavac> {
 
     @Override
     protected void kontrolaDelete() throws EdunovaException {
-        super.kontrolaDelete();
-        if (entitet.getGrupe() != null && !entitet.getGrupe().isEmpty()) {
-            throw new EdunovaException("Predavac je  postavljen  na  jednu ili  vise grupa");
+        super.kontrolaDelete(); 
+        if(entitet.getGrupe()!=null 
+                && !entitet.getGrupe().isEmpty()){
+            throw new EdunovaException("Predavač je postavljen "
+                    + "na jednu ili više grupa");
         }
-
     }
-
+    
+    
+    
 }
